@@ -1,0 +1,11 @@
+# Garak report files (may contain sensitive scan data)
+*.jsonl
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# API keys
+*.key
