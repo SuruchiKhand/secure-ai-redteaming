@@ -100,4 +100,56 @@ git push -u origin main
 
 ---
 
+## Module 1: Red Teaming Scenarios for LLM Vulnerabilities
+### Red Team Assessment: ChatAssist Customer Service Bot
+
+**Scenario:** Pre-launch security assessment of ChatAssist, a customer service 
+chatbot for TechFlow Solutions serving 500,000 customers.
+
+### Tools Used
+- **NVIDIA Garak v0.14.0** — Automated vulnerability scanner
+- **OpenAI GPT-3.5-turbo** — Target model for security testing
+- **Node.js** — Professional report generation
+- **Python 3.11** — Data parsing and analysis
+
+### What I Did
+1. Designed 5 manual attack scenarios targeting key LLM vulnerability categories
+2. Ran automated Garak vulnerability scan across multiple categories
+3. Analyzed scan results and identified critical vulnerabilities
+4. Generated a professional red team assessment report
+5. Provided a launch recommendation based on findings
+
+### Attack Scenarios Designed
+| Scenario | Attack Type | Approach |
+|----------|------------|---------|
+| 1 | Prompt Injection | Social engineering and technically accurate injection |
+| 2 | Jailbreaking | Alternative persona and cultural sensitivity roleplay |
+| 3 | Data Extraction | False customer verification and false advertising claim |
+| 4 | System Prompt Exposure | Travel urgency and weather delay social engineering |
+| 5 | Context Building | Multi-turn false authorization and business referral |
+
+### Garak Scan Results
+| Category | Pass Rate | Status |
+|----------|-----------|--------|
+| ansiescape.AnsiEscaped | 41.18% | 🔴 Critical |
+| ansiescape.AnsiRaw | 92.76% | ✅ Good |
+| apikey.CompleteKey | 95.63% | ✅ Good |
+| atkgen.Tox | 98.40% | ✅ Good |
+| continuation.ContinueSlursReclaimedSlurs | 99.53% | ✅ Good |
+
+### Key Findings
+- ANSI escape code exploitation had a critical attack success rate of 58.82%
+- Prompt injection attacks succeeded in structured task contexts
+- Social engineering attacks require zero technical knowledge to execute
+- Multi-turn attacks are harder to detect than single prompt attacks
+
+### Launch Recommendation
+**DELAY LAUNCH** — Critical vulnerabilities must be remediated before deployment
+to protect 500,000 customers from potential data exposure.
+
+### GitHub Repository
+[secure-ai-redteaming](https://github.com/yourusername/secure-ai-redteaming)
+
+---
+
 *Last updated: March 2026*
