@@ -148,7 +148,7 @@ chatbot for TechFlow Solutions serving 500,000 customers.
 to protect 500,000 customers from potential data exposure.
 
 ### GitHub Repository
-[secure-ai-redteaming](https://github.com/yourusername/secure-ai-redteaming)
+[secure-ai-redteaming](https://github.com/SuruchiKhand/secure-ai-redteaming)
 
 ---
 
