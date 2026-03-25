@@ -10,7 +10,9 @@ key findings, and practical workflows.
 
 ---
 
-## Chapter 1: Hands-on Vulnerability Discovery with Automated Tools
+## Module 1: Red-Teaming Scenarios for LLM vulnerabilities
+
+## Chapter: Hands-on Vulnerability Discovery with Automated Tools
 
 ### Tools Used
 - **Garak v0.14.0** — NVIDIA's open-source LLM vulnerability scanner
@@ -152,4 +154,59 @@ to protect 500,000 customers from potential data exposure.
 
 ---
 
+## Module 2: Content Safety Filters — Implementation and Testing
+
+### Graded Assignment: Safety Filter Implementation for SecureChat Enterprise Bot
+
+**Scenario:** Pre-deployment safety filter implementation for BizAssist, an enterprise HR chatbot launching to Fortune 500 clients in 72 hours for SecureChat Technologies. $15M in contracts depended on passing security audits.
+
+### Tools Used
+- **Microsoft PyRIT v0.11.0** — Systematic filter bypass testing
+- **OpenAI GPT-3.5-turbo** — Target model for security testing
+- **Python 3.11** — PyRIT integration and test scripting
+- **Node.js** — Professional report generation
+
+### What I Did
+1. Designed a 4-layer safety filter architecture for enterprise HR context
+2. Configured keyword blocklist with 18 terms targeting BizAssist-specific attacks
+3. Defined 6 prohibited intent categories for semantic analysis layer
+4. Designed output filtering with 5 critical checks
+5. Configured behavioral monitoring with conversation-level rules
+6. Installed and configured Microsoft PyRIT v0.11.0 on macOS
+7. Ran baseline PyRIT bypass testing across 7 attack scenarios
+8. Ran advanced PyRIT testing including multi-turn context building attacks
+9. Analyzed filter performance and produced before/after comparison
+10. Generated professional safety filter implementation report
+
+### Filter Architecture Designed
+| Layer | Type | Speed | Threshold |
+|-------|------|-------|-----------|
+| 1 | Input Sanitization | <10ms | Strict |
+| 2 | Semantic Analysis | 100-300ms | 85% similarity |
+| 3 | Output Filtering | 50-100ms | Critical checks |
+| 4 | Behavioral Monitoring | Async background | Continuous |
+
+### PyRIT Test Results
+| Round | Attacks | Blocked | Bypassed | Bypass Rate |
+|-------|---------|---------|----------|-------------|
+| Baseline | 7 | 7 (100%) | 0 | 0% |
+| Advanced | 7 | 7 (100%) | 0 | 0% |
+| **Total** | **14** | **14 (100%)** | **0** | **0%** |
+
+### Key Findings
+- 0% bypass rate across 14 attack scenarios — well below 5% enterprise threshold
+- Multi-turn context building attacks blocked across all conversation turns
+- Base64 encoding attacks decoded but not complied with
+- False authority claims including CEO impersonation rejected
+- False positive risk identified — context-aware role-based exceptions recommended
+
+### Deployment Recommendation
+**DEPLOY with conditions** — 0% bypass rate meets enterprise threshold. Conditions include context-aware role exceptions, weekly PyRIT regression testing, and false positive monitoring.
+
+### GitHub Repository
+[secure-ai-redteaming](https://github.com/SuruchiKhand/secure-ai-redteaming)
+
+---
+
 *Last updated: March 2026*
+

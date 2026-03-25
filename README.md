@@ -1,5 +1,3 @@
-# AI Security: Red Teaming and LLM Vulnerability Assessment
-
 ## Overview
 This repository contains hands-on security assessments and red teaming exercises 
 from the Secure AI: Red Teaming and Safety Filters course. Each module demonstrates 
@@ -20,6 +18,13 @@ secure-ai-redteaming/
         └── chatassist-red-team-assessment/
             ├── generate_chatassist_report.js
             └── ChatAssist_Red_Team_Assessment.docx
+    └── module2-content-safety-filters/
+        └── securechat-safety-filter-assessment/
+            ├── pyrit_test.py
+            ├── pyrit_test_advanced.py
+            ├── generate_securechat_report.js
+            └── SecureChat_Safety_Filter_Report.docx
+            └── SecureChat_Safety_Filter_Report.pdf
     └── PORTFOLIO.md
     └── README.md
 ```
@@ -97,3 +102,19 @@ node generate_chatassist_report.js
 - Python and Node.js scripting
 - AI safety concepts and remediation recommendations
 - SSH key setup and GitHub version control
+
+## Module 2: Content Safety Filters — Implementation and Testing
+
+### Safety Filter Implementation for SecureChat Enterprise Bot
+Pre-deployment safety filter implementation for BizAssist enterprise HR chatbot
+targeting Fortune 500 clients. Designed 4-layer filter architecture and validated
+using Microsoft PyRIT v0.11.0.
+
+**Key Finding:** 0% bypass rate across 14 attack scenarios including sophisticated
+multi-turn attacks — meets enterprise deployment threshold of less than 5%.
+
+**Scripts:**
+- `pyrit_test.py` — Baseline PyRIT bypass testing
+- `pyrit_test_advanced.py` — Advanced multi-turn attack testing
+- `generate_securechat_report.js` — Generates safety filter implementation report
+
