@@ -9,3 +9,13 @@ node_modules/
 
 # API keys
 *.key
+
+# PyRIT Logs and Session Data
+**/active
+**/frozen
+
+# macOS System Files
+**/.DS_Store
+
+# PyRIT results
+**/*.json
