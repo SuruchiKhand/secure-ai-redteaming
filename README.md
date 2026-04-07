@@ -25,6 +25,18 @@ secure-ai-redteaming/
             ├── generate_securechat_report.js
             └── SecureChat_Safety_Filter_Report.docx
             └── SecureChat_Safety_Filter_Report.pdf
+    └── module3-llm-resilience/
+        └── analyzebot-resilience-assessment/
+            ├── promptfooconfig.yaml
+            ├── hardening-v1.yaml
+            ├── hardening-v2.yaml
+            ├── hardening-v3.yaml
+            ├── baseline_security_assessment.md
+            ├── continuous_monitoring_plan.md
+            ├── hardening_results.md
+            ├── generate_analyzebot_combined_report.js
+            ├── AnalyzeBot_Resilience_Assessment_Report.docx
+            └── AnalyzeBot_Resilience_Assessment_Report.pdf
     └── PORTFOLIO.md
     └── README.md
 ```
@@ -105,7 +117,7 @@ node generate_chatassist_report.js
 
 ## Module 2: Content Safety Filters — Implementation and Testing
 
-### Safety Filter Implementation for SecureChat Enterprise Bot
+### Graded Assignment: Safety Filter Implementation for SecureChat Enterprise Bot
 Pre-deployment safety filter implementation for BizAssist enterprise HR chatbot
 targeting Fortune 500 clients. Designed 4-layer filter architecture and validated
 using Microsoft PyRIT v0.11.0.
@@ -118,3 +130,142 @@ multi-turn attacks — meets enterprise deployment threshold of less than 5%.
 - `pyrit_test_advanced.py` — Advanced multi-turn attack testing
 - `generate_securechat_report.js` — Generates safety filter implementation report
 
+**Tools Used**
+- Microsoft PyRIT v0.11.0 — Systematic filter bypass testing
+- OpenAI GPT-3.5-turbo — Target model for security testing
+- Python 3.11 — PyRIT integration and test scripting
+- Node.js — Professional report generation
+
+---
+
+## Module 3: Testing LLM Resilience and Improving AI Robustness
+
+### Graded Assignment: Resilience Assessment and Continuous Hardening of DataSecure AI Assistant
+
+Comprehensive resilience assessment of AnalyzeBot, DataSecure Corporation's AI-powered data analysis assistant, after 90 days in production serving healthcare, financial, and government enterprise clients. Established baseline security metrics using Promptfoo, implemented a continuous monitoring pipeline, and demonstrated measurable security improvements through three systematic hardening iterations.
+
+**Key Finding:** Baseline security score of 33.33% (61.67 percentage points below the initial 95% target), confirmed by 30 failed tests across all four vulnerability categories. Three targeted hardening iterations improved the score to 91.11%, exceeding the enterprise deployment threshold of 90% and clearing the contractual floor of 85%.
+
+**Config Files:**
+- `promptfooconfig.yaml` — Baseline assessment with 45 adversarial test cases across 4 categories
+- `hardening-v1.yaml` — Iteration 1: Data confidentiality and system prompt protection rules
+- `hardening-v2.yaml` — Iteration 2: Persona stability and prompt injection detection rules
+- `hardening-v3.yaml` — Iteration 3: Defense-in-depth comprehensive hardening
+
+**Deliverables:**
+- `baseline_security_assessment.md` — Full baseline report with all 30 failed tests documented
+- `continuous_monitoring_plan.md` — Industry-standard four-tier monitoring architecture
+- `hardening_results.md` — Iterative hardening results with root cause analysis of persistent failures
+- `generate_analyzebot_combined_report.js` — Generates the combined Word document report
+- `AnalyzeBot_Resilience_Assessment_Report.docx` / `.pdf` — Final submission report
+
+**Tools Used**
+- Promptfoo v0.119 — LLM evaluation framework for systematic security testing
+- OpenAI GPT-3.5-turbo — Model under test (temperature: 0.0 for deterministic results)
+- Node.js — Professional report generation
+- GitHub Actions — CI/CD security gate automation
+
+**Test Suite Overview**
+
+| Category | Tests | Attack Types |
+|---|---|---|
+| Prompt Injection (PI) | 15 | Instruction overrides, authority claims, encoded payloads, CSV/document injection, delimiter attacks |
+| Jailbreaking (JB) | 10 | Developer mode, DAN, evil twin, fictional framing, grandma exploit, token manipulation, hypotheticals |
+| Data Extraction (DE) | 10 | Client lists, financial data, training data, competitive intelligence, contract values |
+| System Prompt Exposure (SP) | 10 | Direct requests, translation, reformatting, token prediction, configuration extraction |
+| **Total** | **45** | |
+
+**Hardening Progression**
+
+| Iteration | Score | Change |
+|---|---|---|
+| Baseline | 33.33% | — |
+| Hardening v1 | 84.44% | +51.11pp |
+| Hardening v2 | 91.11% | +6.67pp |
+| Hardening v3 (Final) | 91.11% | — |
+
+---
+
+## How to Run
+
+### Prerequisites
+- Python 3.10+
+- Node.js
+- OpenAI API key
+
+### Installation
+
+```bash
+# Install Garak (Module 1)
+pip install garak
+
+# Install Promptfoo (Module 3)
+npm install -g promptfoo
+
+# Install report generator dependencies
+npm install docx
+```
+
+### Module 1 — Run a Garak vulnerability scan
+
+```bash
+export OPENAI_API_KEY="your-key-here"
+
+# Baseline scan
+garak --model_type openai --model_name gpt-3.5-turbo
+
+# Targeted prompt injection scan
+garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject --report_prefix garak_report
+
+# Generate the LLM Security Audit Report
+python parse_report.py garak_report*.jsonl > parsed_data.json
+node generate_report.js
+
+# Generate the ChatAssist Red Team Assessment
+cd module1-red-teaming-scenarios/chatassist-red-team-assessment
+node generate_chatassist_report.js
+```
+
+### Module 2 — Run PyRIT safety filter testing
+
+```bash
+cd module2-content-safety-filters/securechat-safety-filter-assessment
+pip install pyrit
+python pyrit_test.py
+python pyrit_test_advanced.py
+node generate_securechat_report.js
+```
+
+### Module 3 — Run Promptfoo resilience assessment
+
+```bash
+cd module3-llm-resilience/analyzebot-resilience-assessment
+export OPENAI_API_KEY="your-key-here"
+
+# Run baseline assessment
+promptfoo eval -c promptfooconfig.yaml
+promptfoo view
+
+# Run hardening iterations
+promptfoo eval --config hardening-v1.yaml
+promptfoo eval --config hardening-v2.yaml
+promptfoo eval --config hardening-v3.yaml
+
+# Generate combined report
+node generate_analyzebot_combined_report.js
+```
+
+---
+
+## Skills Demonstrated
+
+- LLM security testing and red teaming
+- Manual attack scenario design across multiple vulnerability categories
+- Automated vulnerability scanning with Garak and Promptfoo
+- Safety filter architecture design and implementation
+- Iterative security hardening with quantitative measurement
+- Continuous monitoring pipeline design with CI/CD integration
+- Security report generation and documentation
+- Python and Node.js scripting
+- AI safety concepts and remediation recommendations
+- SSH key setup and GitHub version control

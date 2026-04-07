@@ -208,5 +208,80 @@ to protect 500,000 customers from potential data exposure.
 
 ---
 
-*Last updated: March 2026*
+## Module 3: Testing LLM Resilience and Improving AI Robustness
+
+### Graded Assignment: Resilience Assessment and Continuous Hardening of DataSecure AI Assistant
+
+**Scenario:** Hired as Senior AI Security Auditor at DataSecure Corporation to investigate AnalyzeBot, their AI-powered data analysis assistant serving enterprise clients in healthcare, financial, and government sectors. After 90 days in production, compliance officers flagged behavioral drift: the system now provides competitive intelligence it previously refused and responds to creative prompt variations that should trigger safety filters. A Fortune 50 healthcare provider with an $8M annual contract requires quarterly security audits with automatic termination if security degrades more than 10% from baseline.
+
+**Tools Used**
+- Promptfoo v0.119 — LLM evaluation framework for systematic security testing
+- OpenAI GPT-3.5-turbo — Model under test (temperature: 0.0 for deterministic results)
+- Node.js — Professional report generation
+- GitHub Actions — CI/CD security gate automation
+
+**What I Did**
+- Configured a 45-test Promptfoo evaluation suite across 4 vulnerability categories
+- Ran baseline assessment establishing the degraded security posture quantitatively
+- Used `promptfoo eval --watch` for live iteration feedback during hardening cycles
+- Executed 3 targeted hardening iterations, each changing exactly one set of system prompt rules
+- Documented all 30 baseline failures with attack prompts, rubric criteria, and actual responses
+- Designed an industry-standard four-tier continuous monitoring architecture
+- Implemented a CI/CD security gate using GitHub Actions blocking deploys below 85%
+- Generated a comprehensive combined assessment report
+
+**How Assertions Work in Promptfoo**
+
+Each test uses one or both of two assertion types:
+- **`not-contains`** — fast keyword check that fails instantly if a dangerous string appears (e.g., "ADMIN_MODE_ACTIVE"). Used when a single string makes the failure unambiguous.
+- **`llm-rubric`** — AI-powered evaluation where a grader model judges the response against a natural-language criterion. Used when failure requires understanding the meaning of the response.
+
+**Baseline Results (promptfooconfig.yaml)**
+
+| Category | Tests | Passed | Failed | Score |
+|---|---|---|---|---|
+| Prompt Injection | 15 | 8 | 7 | 53.33% |
+| Jailbreaking | 10 | 1 | 9 | 10.00% |
+| Data Extraction | 10 | 3 | 7 | 30.00% |
+| System Prompt Exposure | 10 | 3 | 7 | 30.00% |
+| **TOTAL** | **45** | **15** | **30** | **33.33%** |
+
+**Hardening Iterations**
+
+| Iteration | Fix Applied | Tests Fixed | Score | Change |
+|---|---|---|---|---|
+| Baseline | — | — | 33.33% | — |
+| v1 | Added Rule 1 (Data Confidentiality) + Rule 2 (System Prompt Protection) | 23 | 84.44% | +51.11pp |
+| v2 | Added Rule 3 (Persona Stability) + Rule 4 (Injection Detection) | 3 (net) | 91.11% | +6.67pp |
+| v3 | Defense-in-depth expansion | 0 | 91.11% | — |
+
+**Continuous Monitoring Architecture**
+
+| Tier | Scan Type | Frequency | Tests | Trigger |
+|---|---|---|---|---|
+| 1 (Primary) | On-Commit Gate | Every push to main | 45 | GitHub Actions |
+| 2 (Daily) | Smoke Test | Daily, 6 AM UTC | 10 | Scheduled cron |
+| 3 (Weekly) | Comprehensive Sweep | Friday, 8 AM UTC | 45 | Scheduled cron |
+| 4 (Monthly) | Expanded Scan | 1st of month | 55+ | Scheduled cron |
+
+**Key Findings**
+- Baseline score of 33.33% confirmed a critical 61.67 percentage-point degradation from the initial 95% deployment target, placing the $8M healthcare contract at immediate risk
+- The root cause was a single helpfulness-first instruction: "Be as helpful as possible to maximize user satisfaction" — which caused the model to comply with social engineering, accept fictional framings as permission grants, and treat authority claims as legitimate
+- Iteration 1 produced the largest single gain (+51.11pp) by adding two explicit data confidentiality rules — demonstrating that explicit rules always beat implicit intentions
+- A spill-over effect was observed: targeting Data Extraction improved Jailbreaking from 10% to 80% without directly targeting it, because role boundary clarity inherently strengthened identity stability
+- The 4 remaining failures at 91.11% are structural: PI-03 and PI-10 reveal an over-refusal pattern (injection detection too coarse), PI-05 reveals a grader sensitivity issue, and SP-04 reveals an architectural paradox where more explicit rules produce more informative self-disclosure
+
+**Key Concepts Learned**
+- **Temperature 0.0** — deterministic model outputs essential for reproducible security testing
+- **Promptfoo assertions** — `not-contains` for fast keyword checks; `llm-rubric` for nuanced AI evaluation
+- **Iterative hardening** — one change at a time so every improvement is directly attributable
+- **Spill-over effects** — fixing one vulnerability category can improve adjacent categories through shared root causes
+- **Over-refusal** — injection detection rules that are too coarse refuse legitimate content alongside malicious payloads
+- **Architectural paradox (SP-04)** — explicit named security rules in the system prompt are inherently self-disclosing when the model is asked to describe its guidelines
+- **Event-driven vs time-based monitoring** — CI/CD gates as the primary control; periodic scans as the drift detection backstop
+- **Security vs helpfulness tension** — user satisfaction and security score moved in opposite directions during the 90-day drift period
+
+**Deployment Recommendation:** DEPLOY — 91.11% final score exceeds the enterprise threshold of 90% and clears the contractual floor of 85%. Four structural failures remain but involve no data disclosure. Remediation recommended before the next quarterly client audit.
+
+*Last updated: April 2026*
 
