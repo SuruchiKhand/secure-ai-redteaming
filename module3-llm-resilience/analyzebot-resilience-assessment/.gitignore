@@ -1,0 +1,7 @@
+# Node dependencies
+node_modules/
+
+# Generated reports
+*.pdf
+*.docx
+results.json

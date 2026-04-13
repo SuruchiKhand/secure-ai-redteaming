@@ -19,3 +19,17 @@ node_modules/
 
 # PyRIT results
 **/*.json
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Garak output
+garak_output/
+
+# Generated binary reports
+*.pdf
+*.docx
