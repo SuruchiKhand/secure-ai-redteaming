@@ -32,4 +32,4 @@ garak_output/
 
 # Generated binary reports
 *.pdf
-*.docx
+*.docxgarak_config.json
