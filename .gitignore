@@ -32,4 +32,7 @@ garak_output/
 
 # Generated binary reports
 *.pdf
-*.docxgarak_config.json
+*.docx
+
+garak_config.json
+pyrit_memory.db
