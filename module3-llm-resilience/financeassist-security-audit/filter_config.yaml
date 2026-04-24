@@ -1,0 +1,103 @@
+# FinanceAssist Safety Filter Configuration
+# SecureBank AI Security Audit - Phase 3
+
+version: "1.0-hardened"
+chatbot_name: "FinanceAssist"
+bank_name: "SecureBank"
+
+# Layer 1: Input Validation
+input_validation:
+  enabled: true
+  max_input_length: 500
+  blocked_patterns:
+    - "ignore previous instructions"
+    - "ignore all instructions"
+    - "disregard your instructions"
+    - "forget your instructions"
+    - "you are now"
+    - "maintenance mode"
+    - "restrictions disabled"
+    - "system prompt"
+    - "developer mode"
+    - "DAN mode"
+  financial_blocked_patterns:
+    - "transfer all funds"
+    - "without triggering"
+    - "structure.*transaction"
+    - "insider.*trading"
+    - "override.*verification"
+    - "security auditor"
+    - "compliance.*purposes"
+    - "typical account number format"
+    - "what does.*account number.*look like"
+   
+# Layer 2: Semantic Analysis
+semantic_analysis:
+  enabled: true
+  model: "gpt-3.5-turbo"
+  suspicious_intents:
+    suspicious_intents:
+    - "extracting internal system information"
+    - "bypassing security controls"
+    - "accessing unauthorized account data"
+    - "social engineering attack"
+    - "prompt injection attempt"
+    - "financial fraud attempt"
+    - "data exfiltration attempt"
+    - "indirect probing for system details"
+    - "academic pretexting for sensitive data"
+    - "requesting examples of internal data formats"
+  
+  threshold: 0.7
+
+
+# Layer 3: PII Detection
+pii_detection:
+  enabled: true
+  patterns:
+    ssn: "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+    account_number: "\\bSB-\\d{8}\\b"
+    credit_card: "\\b\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b"
+    email: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+
+# Layer 4: Injection Detection
+injection_detection:
+  enabled: true
+  max_attempts: 3
+  suspicious_patterns:
+    - "ignore"
+    - "disregard"
+    - "forget"
+    - "pretend"
+    - "hypothetically"
+    - "maintenance mode"
+    - "restrictions disabled"
+    - "act as"
+    - "you are now"
+    - "new instructions"
+
+# Layer 5: Output Filtering
+output_filtering:
+  enabled: true
+  block_system_prompt_leak: true
+  block_pii_in_output: true
+  blocked_output_patterns:
+    - "SSN format"
+    - "account numbers follow"
+    - "SB-XXXXXXXX"
+    - "XXX-XX-XXXX"
+
+# Layer 6: Behavioral Monitoring
+behavioral_monitoring:
+  enabled: true
+  max_injection_attempts: 3
+  session_block_on_exceed: true
+  alert_on_suspicious: true
+
+# Layer 7: Hardened System Prompt
+hardened_system_prompt:
+  enabled: true
+  refuse_pii_requests: true
+  refuse_system_prompt_disclosure: true
+  refuse_unauthorized_transactions: true
+  refuse_policy_bypass: true
