@@ -36,3 +36,4 @@ garak_output/
 
 garak_config.json
 pyrit_memory.db
+hardened_proxy.py
