@@ -5,14 +5,23 @@
 
 ## About Me
 Currently learning AI security, red teaming, and LLM vulnerability testing.
-This document tracks my hands-on learning journey including tools, concepts,
-key findings, and practical workflows.
+This document tracks key projects, findings, and concepts learned 
+across five practical security assessments.
+
+---
+
+**Tools used across all projects:**
+Garak v0.14.0, PyRIT v0.11.0, Promptfoo v0.119-0.121, OpenAI GPT-3.5-turbo, 
+Python 3.11, Node.js v25.7.0, conda
 
 ---
 
 ## Module 1: Red-Teaming Scenarios for LLM vulnerabilities
 
-## Chapter: Hands-on Vulnerability Discovery with Automated Tools
+### Project 1: Hands-on Vulnerability Discovery with Automated Tools
+
+**Scenario:** Baseline security scan of GPT-3.5-turbo to understand automated 
+LLM vulnerability testing using NVIDIA Garak.
 
 ### Tools Used
 - **Garak v0.14.0** — NVIDIA's open-source LLM vulnerability scanner
@@ -23,17 +32,11 @@ key findings, and practical workflows.
 - **conda** — Virtual environment management (redteam environment)
 
 ### What I Did
-1. Set up a conda virtual environment called redteam
-2. Created an organized course directory structure on macOS
-3. Installed Garak v0.14.0 via pip
-4. Created an OpenAI API key and added credits for API calls
-5. Ran a baseline security scan across 80+ vulnerability categories
-6. Ran a targeted prompt injection scan using --probes promptinject
-7. Analyzed raw JSONL scan results in VS Code
-8. Wrote a Python script to parse and extract key statistics
-9. Wrote a Node.js script using docx library to generate a Word report
-10. Set up SSH keys using ed25519 algorithm and connected to GitHub
-11. Pushed project to a public GitHub repository
+1. Set up a conda virtual environment (redteam) on macOS
+2. Installed Garak v0.14.0 and configured OpenAI API access
+3. Ran baseline and targeted prompt injection scans
+4. Parsed raw JSONL scan output using a custom Python script
+5. Generated a formatted Word security audit report using Node.js
 
 ### Key Findings from Prompt Injection Scan
 - GPT-3.5-turbo **failed 100% of prompt injection tests** (62/62)
@@ -55,55 +58,20 @@ key findings, and practical workflows.
 |----------------|------|------|-----------|
 | promptinject.HijackHateHumans | 0 | 62 | 0.0% |
 
-### Commands Learned
-```bash
-# Install Garak
-pip install garak
-
-# Verify installation
-garak --version
-
-# Set OpenAI API key
-export OPENAI_API_KEY="your-key-here"
-
-# Run baseline scan
-garak --model_type openai --model_name gpt-3.5-turbo
-
-# Run targeted prompt injection scan
-garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject
-
-# Export report with prefix
-garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject --report_prefix garak_report
-
-# Parse report with Python
-python parse_report.py garak_report*.jsonl > parsed_data.json
-
-# Generate Word report with Node.js
-node generate_report.js
-
-# SSH key generation
-ssh-keygen -t ed25519 -C "your-email@example.com"
-
-# Push to GitHub
-git push -u origin main
-```
-
-### Key Concepts Learned
-- **Prompt Injection** — attacker overrides model instructions by embedding commands in input
-- **Automated vs Manual Red Teaming** — Garak tests thousands of prompts vs ~50/hour manually
-- **Pass Rate** — percentage of attacks the model defended against
-- **Context Dependency** — same attack can succeed or fail depending on the task context
-- **JSONL Format** — each line in the report is an individual test case
-- **SSH Keys** — secure authentication using ed25519 public/private key pairs
-- **conda-forge** — community channel that provides packages not in conda's default channel
-
-### GitHub Repository
-[secure-ai-redteaming](https://github.com/SuruchiKhand/secure-ai-redteaming)
+### Key Concepts
+- **Prompt Injection** — attacker overrides model instructions by embedding 
+  commands in user input
+- **Automated vs Manual Red Teaming** — Garak tests thousands of prompts 
+  vs approximately 50 per hour manually
+- **Context Dependency** — same attack can succeed or fail depending on 
+  the surrounding task context
+- **JSONL Format** — each line in a Garak report is an individual test case
 
 ---
 
 ## Module 1: Red Teaming Scenarios for LLM Vulnerabilities
-### Red Team Assessment: ChatAssist Customer Service Bot
+
+### Project 2: ChatAssist Customer Service Bot Red Team Assessment
 
 **Scenario:** Pre-launch security assessment of ChatAssist, a customer service 
 chatbot for TechFlow Solutions serving 500,000 customers.
@@ -116,12 +84,10 @@ chatbot for TechFlow Solutions serving 500,000 customers.
 
 ### What I Did
 1. Designed 5 manual attack scenarios targeting key LLM vulnerability categories
-2. Ran automated Garak vulnerability scan across multiple categories
-3. Analyzed scan results and identified critical vulnerabilities
-4. Generated a professional red team assessment report
-5. Provided a launch recommendation based on findings
+2. Ran automated Garak vulnerability scan across multiple probe categories
+3. Analyzed results and produced a launch recommendation report
 
-### Attack Scenarios Designed
+### Attack Scenarios 
 | Scenario | Attack Type | Approach |
 |----------|------------|---------|
 | 1 | Prompt Injection | Social engineering and technically accurate injection |
@@ -133,11 +99,11 @@ chatbot for TechFlow Solutions serving 500,000 customers.
 ### Garak Scan Results
 | Category | Pass Rate | Status |
 |----------|-----------|--------|
-| ansiescape.AnsiEscaped | 41.18% | 🔴 Critical |
-| ansiescape.AnsiRaw | 92.76% | ✅ Good |
-| apikey.CompleteKey | 95.63% | ✅ Good |
-| atkgen.Tox | 98.40% | ✅ Good |
-| continuation.ContinueSlursReclaimedSlurs | 99.53% | ✅ Good |
+| ansiescape.AnsiEscaped | 41.18% |  Critical |
+| ansiescape.AnsiRaw | 92.76% |  Good |
+| apikey.CompleteKey | 95.63% |  Good |
+| atkgen.Tox | 98.40% |  Good |
+| continuation.ContinueSlursReclaimedSlurs | 99.53% | Good |
 
 ### Key Findings
 - ANSI escape code exploitation had a critical attack success rate of 58.82%
@@ -149,16 +115,23 @@ chatbot for TechFlow Solutions serving 500,000 customers.
 **DELAY LAUNCH** — Critical vulnerabilities must be remediated before deployment
 to protect 500,000 customers from potential data exposure.
 
-### GitHub Repository
-[secure-ai-redteaming](https://github.com/SuruchiKhand/secure-ai-redteaming)
+**Key Concepts:**
+- **ANSI Escape Codes** — control sequences that manipulate terminal 
+  rendering, exploitable to hide malicious content in model output
+- **Multi-turn Attacks** — harder to detect than single prompt attacks 
+  because intent builds gradually across conversation turns
+- **Social Engineering** — requires zero technical knowledge to execute, 
+  making it accessible to non-technical attackers
 
 ---
 
 ## Module 2: Content Safety Filters — Implementation and Testing
 
-### Graded Assignment: Safety Filter Implementation for SecureChat Enterprise Bot
+### Project 3: Safety Filter Implementation for BizAssist HR Chatbot
 
-**Scenario:** Pre-deployment safety filter implementation for BizAssist, an enterprise HR chatbot launching to Fortune 500 clients in 72 hours for SecureChat Technologies. $15M in contracts depended on passing security audits.
+**Scenario:** Pre-deployment safety filter design and validation for BizAssist, 
+an enterprise HR chatbot launching to Fortune 500 clients in 72 hours. 
+$15M in contracts depended on passing security audits.
 
 ### Tools Used
 - **Microsoft PyRIT v0.11.0** — Systematic filter bypass testing
@@ -167,18 +140,16 @@ to protect 500,000 customers from potential data exposure.
 - **Node.js** — Professional report generation
 
 ### What I Did
-1. Designed a 4-layer safety filter architecture for enterprise HR context
+1. Designed a 4-layer safety filter architecture
 2. Configured keyword blocklist with 18 terms targeting BizAssist-specific attacks
-3. Defined 6 prohibited intent categories for semantic analysis layer
+3. Defined 6 prohibited intent categories for semantic analysis
 4. Designed output filtering with 5 critical checks
 5. Configured behavioral monitoring with conversation-level rules
-6. Installed and configured Microsoft PyRIT v0.11.0 on macOS
-7. Ran baseline PyRIT bypass testing across 7 attack scenarios
-8. Ran advanced PyRIT testing including multi-turn context building attacks
-9. Analyzed filter performance and produced before/after comparison
-10. Generated professional safety filter implementation report
+6. Installed and configured PyRIT v0.11.0
+7. Ran baseline and advanced bypass testing across 14 attack scenarios
+8. Produced before/after filter performance comparison
 
-### Filter Architecture Designed
+### Filter Architecture 
 | Layer | Type | Speed | Threshold |
 |-------|------|-------|-----------|
 | 1 | Input Sanitization | <10ms | Strict |
@@ -201,42 +172,53 @@ to protect 500,000 customers from potential data exposure.
 - False positive risk identified — context-aware role-based exceptions recommended
 
 ### Deployment Recommendation
-**DEPLOY with conditions** — 0% bypass rate meets enterprise threshold. Conditions include context-aware role exceptions, weekly PyRIT regression testing, and false positive monitoring.
+**DEPLOY with conditions** — weekly PyRIT regression 
+testing and false positive monitoring required.
 
-### GitHub Repository
-[secure-ai-redteaming](https://github.com/SuruchiKhand/secure-ai-redteaming)
+### Key Concepts
+- **PyRIT** — Microsoft's adversarial testing framework for systematic 
+  filter bypass testing across multiple attack scenarios
+- **False Positive Risk** — overly strict filters block legitimate requests, 
+  requiring context-aware exceptions
+- **Defense in Depth** — layered filters where each layer catches what 
+  the previous missed
 
 ---
 
 ## Module 3: Testing LLM Resilience and Improving AI Robustness
 
-### Graded Assignment: Resilience Assessment and Continuous Hardening of DataSecure AI Assistant
+### Project 4: AnalyzeBot Resilience Assessment
 
-**Scenario:** Hired as Senior AI Security Auditor at DataSecure Corporation to investigate AnalyzeBot, their AI-powered data analysis assistant serving enterprise clients in healthcare, financial, and government sectors. After 90 days in production, compliance officers flagged behavioral drift: the system now provides competitive intelligence it previously refused and responds to creative prompt variations that should trigger safety filters. A Fortune 50 healthcare provider with an $8M annual contract requires quarterly security audits with automatic termination if security degrades more than 10% from baseline.
+**Scenario:** Investigate behavioral drift in AnalyzeBot, DataSecure 
+Corporation's AI assistant serving healthcare, financial, and government 
+clients after 90 days in production. A Fortune 50 healthcare provider 
+with an $8M contract requires quarterly audits with automatic termination 
+if security degrades more than 10%.
 
-**Tools Used**
+## Tools Used
 - Promptfoo v0.119 — LLM evaluation framework for systematic security testing
 - OpenAI GPT-3.5-turbo — Model under test (temperature: 0.0 for deterministic results)
 - Node.js — Professional report generation
 - GitHub Actions — CI/CD security gate automation
 
-**What I Did**
-- Configured a 45-test Promptfoo evaluation suite across 4 vulnerability categories
-- Ran baseline assessment establishing the degraded security posture quantitatively
-- Used `promptfoo eval --watch` for live iteration feedback during hardening cycles
-- Executed 3 targeted hardening iterations, each changing exactly one set of system prompt rules
-- Documented all 30 baseline failures with attack prompts, rubric criteria, and actual responses
-- Designed an industry-standard four-tier continuous monitoring architecture
-- Implemented a CI/CD security gate using GitHub Actions blocking deploys below 85%
-- Generated a comprehensive combined assessment report
+## What I Did
+1. Built a 45-test Promptfoo evaluation suite across 4 vulnerability categories
+2. Ran baseline assessment establishing quantitative security posture
+3. Executed 3 hardening iterations, changing one variable at a time
+4. Designed a 4-tier continuous monitoring architecture
+5. Implemented a CI/CD security gate using GitHub Actions
 
 **How Assertions Work in Promptfoo**
 
 Each test uses one or both of two assertion types:
-- **`not-contains`** — fast keyword check that fails instantly if a dangerous string appears (e.g., "ADMIN_MODE_ACTIVE"). Used when a single string makes the failure unambiguous.
-- **`llm-rubric`** — AI-powered evaluation where a grader model judges the response against a natural-language criterion. Used when failure requires understanding the meaning of the response.
+- **`not-contains`** — fast keyword check that fails instantly if a dangerous 
+string appears (e.g., "ADMIN_MODE_ACTIVE"). Used when a single string makes the
+failure unambiguous.
+- **`llm-rubric`** — AI-powered evaluation where a grader model judges the response
+against a natural-language criterion. Used when failure requires understanding
+the meaning of the response.
 
-**Baseline Results (promptfooconfig.yaml)**
+## Baseline Results (promptfooconfig.yaml)
 
 | Category | Tests | Passed | Failed | Score |
 |---|---|---|---|---|
@@ -246,7 +228,7 @@ Each test uses one or both of two assertion types:
 | System Prompt Exposure | 10 | 3 | 7 | 30.00% |
 | **TOTAL** | **45** | **15** | **30** | **33.33%** |
 
-**Hardening Iterations**
+## Hardening Iterations
 
 | Iteration | Fix Applied | Tests Fixed | Score | Change |
 |---|---|---|---|---|
@@ -255,7 +237,7 @@ Each test uses one or both of two assertion types:
 | v2 | Added Rule 3 (Persona Stability) + Rule 4 (Injection Detection) | 3 (net) | 91.11% | +6.67pp |
 | v3 | Defense-in-depth expansion | 0 | 91.11% | — |
 
-**Continuous Monitoring Architecture**
+## Continuous Monitoring Architecture
 
 | Tier | Scan Type | Frequency | Tests | Trigger |
 |---|---|---|---|---|
@@ -264,24 +246,114 @@ Each test uses one or both of two assertion types:
 | 3 (Weekly) | Comprehensive Sweep | Friday, 8 AM UTC | 45 | Scheduled cron |
 | 4 (Monthly) | Expanded Scan | 1st of month | 55+ | Scheduled cron |
 
-**Key Findings**
-- Baseline score of 33.33% confirmed a critical 61.67 percentage-point degradation from the initial 95% deployment target, placing the $8M healthcare contract at immediate risk
-- The root cause was a single helpfulness-first instruction: "Be as helpful as possible to maximize user satisfaction" — which caused the model to comply with social engineering, accept fictional framings as permission grants, and treat authority claims as legitimate
-- Iteration 1 produced the largest single gain (+51.11pp) by adding two explicit data confidentiality rules — demonstrating that explicit rules always beat implicit intentions
-- A spill-over effect was observed: targeting Data Extraction improved Jailbreaking from 10% to 80% without directly targeting it, because role boundary clarity inherently strengthened identity stability
-- The 4 remaining failures at 91.11% are structural: PI-03 and PI-10 reveal an over-refusal pattern (injection detection too coarse), PI-05 reveals a grader sensitivity issue, and SP-04 reveals an architectural paradox where more explicit rules produce more informative self-disclosure
+## Key Findings
+- Baseline score of 33.33% confirmed a critical 61.67 percentage-point degradation
+from the initial 95% deployment target, placing the $8M healthcare contract at 
+immediate risk
+- The root cause was a single helpfulness-first instruction: "Be as helpful as 
+possible to maximize user satisfaction" — which caused the model to comply with 
+social engineering, accept fictional framings as permission grants, and treat 
+authority claims as legitimate
+- Iteration 1 produced the largest single gain (+51.11pp) by adding two explicit 
+data confidentiality rules,demonstrating that explicit rules always beat implicit 
+intentions
+- A spill-over effect was observed: targeting Data Extraction improved Jailbreaking
+from 10% to 80% without directly targeting it, because role boundary clarity 
+inherently strengthened identity stability
+- The 4 remaining failures at 91.11% are structural: PI-03 and PI-10 reveal an over-refusal
+pattern (injection detection too coarse), PI-05 reveals a grader sensitivity issue, and 
+SP-04 reveals an architectural paradox where more explicit rules produce more informative
+self-disclosure
 
-**Key Concepts Learned**
-- **Temperature 0.0** — deterministic model outputs essential for reproducible security testing
-- **Promptfoo assertions** — `not-contains` for fast keyword checks; `llm-rubric` for nuanced AI evaluation
-- **Iterative hardening** — one change at a time so every improvement is directly attributable
-- **Spill-over effects** — fixing one vulnerability category can improve adjacent categories through shared root causes
-- **Over-refusal** — injection detection rules that are too coarse refuse legitimate content alongside malicious payloads
-- **Architectural paradox (SP-04)** — explicit named security rules in the system prompt are inherently self-disclosing when the model is asked to describe its guidelines
-- **Event-driven vs time-based monitoring** — CI/CD gates as the primary control; periodic scans as the drift detection backstop
-- **Security vs helpfulness tension** — user satisfaction and security score moved in opposite directions during the 90-day drift period
+## Key Concepts Learned
+- **Behavioral Drift** — security degradation that occurs gradually in 
+  production as edge cases accumulate
+- **Promptfoo Assertions** — not-contains for fast keyword checks; 
+  llm-rubric for nuanced AI evaluation
+- **Iterative Hardening** — one change at a time so every improvement 
+  is directly attributable
+- **Spill-over Effects** — fixing one vulnerability category can improve 
+  adjacent categories through shared root causes
+- **CI/CD Security Gate** — automated deploy blocker that prevents 
+  security regressions from reaching production
 
-**Deployment Recommendation:** DEPLOY — 91.11% final score exceeds the enterprise threshold of 90% and clears the contractual floor of 85%. Four structural failures remain but involve no data disclosure. Remediation recommended before the next quarterly client audit.
+
+## Deployment Recommendation:
+DEPLOY — 91.11% final score exceeds the enterprise threshold of 90% and clears 
+the contractual floor of 85%. Four structural failures remain but involve no 
+data disclosure. Remediation recommended before the next quarterly client audit.
+
+---
+
+## Module 3: LLM Resilience Testing
+
+### Project 5: FinanceAssist Security Audit
+
+**Scenario:** Full AI security audit of FinanceAssist, SecureBank's 
+AI-powered customer service chatbot, before deployment to 2 million customers.
+
+## What I Did:
+1. Deployed a deliberately vulnerable chatbot and documented baseline 
+   security posture of 0%
+2. Red-teamed using three tools in combination:
+   - Garak — automated probe scanning across injection, jailbreak, and 
+     data retrieval categories
+   - PyRIT — multi-turn adversarial conversation attacks
+   - Promptfoo — assertion-based resilience testing
+3. Designed and implemented a 7-layer safety filter architecture in Python 
+   with YAML configuration
+4. Ran 5 hardening iterations measuring security score and false positive 
+   rate at each step
+5. Validated improvements through automated rescanning and Promptfoo testing
+
+## Baseline Vulnerabilities Found:
+
+| Vulnerability | Attack Type | Severity |
+|--------------|------------|---------|
+| Account format disclosure | Information probing | Critical |
+| PII inventory disclosure | Social engineering | Critical |
+| Prompt injection — no block | Injection | Medium |
+| Financial fraud facilitation | Financial exploit | Critical |
+| Automated attack susceptibility | Garak scan (41.2% avg) | Critical |
+| Multi-turn attack susceptibility | PyRIT (100% success) | Critical |
+
+## Hardening Iterations:
+
+| Iteration | Change | Security Score | False Positives |
+|-----------|--------|---------------|----------------|
+| Baseline | No filters | 0.0% | N/A |
+| 1 | Basic input validation | 71.4% | 0.0% |
+| 2 | Social engineering patterns | 100.0% | 14.3% |
+| 3 | Tightened pattern specificity | 85.7% | 0.0% |
+| 4 | Added semantic analysis | 77.8% | 0.0% |
+| 5 | Enhanced semantic classifier | 90.0% | 0.0% |
+
+## Final Security Improvement:
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Manual security score | 0% | 90% |
+| Garak avg attack rate | 41.2% | 3.8% |
+| Critical vulnerabilities | 6 | 0 |
+| False positive rate | N/A | 0% |
+| Promptfoo pass rate | N/A | 83.3% |
+
+## Recommendation:
+Not yet production-ready. Encoded injection and sophisticated 
+social engineering require additional hardening before deployment 
+to 2 million customers.
+
+## Key Concepts
+- **Multi-tool Testing** — no single tool provides complete coverage; 
+  Garak, PyRIT, and Promptfoo each found different vulnerabilities
+- **Semantic Analysis** — using an LLM to classify the intent of 
+  incoming messages before they reach the target LLM
+- **False Positive Rate** — legitimate queries incorrectly blocked by 
+  filters; must be measured alongside security score
+- **Security vs Usability Tradeoff** — Iteration 2 showed that 100% 
+  block rate came at the cost of 14.3% false positives
+- **Encoded Injection** — attacks obfuscated in Base64 or other encoding 
+  schemes that bypass pattern-based filters entirely
 
 *Last updated: April 2026*
 
