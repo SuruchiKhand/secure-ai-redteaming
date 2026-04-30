@@ -4,268 +4,211 @@ from the Secure AI: Red Teaming and Safety Filters course. Each module demonstra
 practical AI security skills including automated vulnerability scanning, manual 
 red teaming, and professional security report generation.
 
-## Repository Structure
-```
-secure-ai-redteaming/
-    └── module1-red-teaming-scenarios/
-        └── ch1-vulnerability-discovery-automated-tools/
-            ├── parse_report.py
-            ├── generate_report.js
-            ├── parsed_data.json
-            ├── package.json
-            ├── package-lock.json
-            └── LLM_Security_Audit_Report.docx
-        └── chatassist-red-team-assessment/
-            ├── generate_chatassist_report.js
-            └── ChatAssist_Red_Team_Assessment.docx
-    └── module2-content-safety-filters/
-        └── securechat-safety-filter-assessment/
-            ├── pyrit_test.py
-            ├── pyrit_test_advanced.py
-            ├── generate_securechat_report.js
-            └── SecureChat_Safety_Filter_Report.docx
-            └── SecureChat_Safety_Filter_Report.pdf
-    └── module3-llm-resilience/
-        └── analyzebot-resilience-assessment/
-            ├── promptfooconfig.yaml
-            ├── hardening-v1.yaml
-            ├── hardening-v2.yaml
-            ├── hardening-v3.yaml
-            ├── baseline_security_assessment.md
-            ├── continuous_monitoring_plan.md
-            ├── hardening_results.md
-            ├── generate_analyzebot_combined_report.js
-            ├── AnalyzeBot_Resilience_Assessment_Report.docx
-            └── AnalyzeBot_Resilience_Assessment_Report.pdf
-    └── PORTFOLIO.md
-    └── README.md
-```
+---
 
-## Module 1: Red Teaming Scenarios for LLM Vulnerabilities
+## Project 1: LLM Vulnerability Discovery with Automated Tools
+`module1-red-teaming-scenarios/ch1-vulnerability-discovery-automated-tools`
 
-### Chapter: Hands-on Vulnerability Discovery with Automated Tools
-Automated LLM vulnerability scanning using NVIDIA Garak against OpenAI GPT-3.5-turbo.
+**Scenario:** Baseline security scan of GPT-3.5-turbo using NVIDIA Garak 
+to understand automated LLM vulnerability testing.
 
-**Key Finding:** GPT-3.5-turbo failed 100% of prompt injection tests (62/62) in the
-`promptinject.HijackHateHumans` category.
+**What I did:**
+- Installed and configured Garak v0.14.0 in a conda environment
+- Ran automated scans across 80+ vulnerability categories
+- Parsed raw JSONL report output using a custom Python script
+- Generated a formatted Word security audit report using Node.js
 
-**Scripts:**
-- `parse_report.py` — Parses raw Garak JSONL output and extracts key statistics
-- `generate_report.js` — Generates a formatted Word document security audit report
+**Key Finding:** GPT-3.5-turbo failed 100% of prompt injection tests 
+(62/62) in structured task contexts — same attack succeeded or failed 
+depending on the surrounding task, showing context dependency is a 
+critical factor in LLM security.
 
-### Graded Assignment: Red Team Assessment of ChatAssist Customer Service Bot
-Pre-launch red team security assessment of ChatAssist, a customer service chatbot 
-for TechFlow Solutions serving 500,000 customers.
-
-**Key Finding:** ANSI escape code exploitation had a critical attack success rate 
-of 58.82%. Launch was recommended to be delayed pending security fixes.
-
-**Scripts:**
-- `generate_chatassist_report.js` — Generates the full red team assessment report
-
-## Tools Used
-- **Garak v0.14.0** — Automated LLM vulnerability scanner
-- **Python 3.11** — Report parsing and statistics extraction
-- **Node.js** — Professional Word document generation
-- **OpenAI GPT-3.5-turbo** — Target model for security testing
-
-## How to Run
-
-### Prerequisites
-- Python 3.10+
-- Node.js
-- OpenAI API key
-
-### Installation
-```bash
-pip install garak
-npm install docx
-```
-
-### Run a baseline scan
-```bash
-export OPENAI_API_KEY="your-key-here"
-garak --model_type openai --model_name gpt-3.5-turbo
-```
-
-### Run a targeted prompt injection scan
-```bash
-garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject --report_prefix garak_report
-```
-
-### Generate the LLM Security Audit Report
-```bash
-python parse_report.py garak_report*.jsonl > parsed_data.json
-node generate_report.js
-```
-
-### Generate the ChatAssist Red Team Assessment Report
-```bash
-cd module1-red-teaming-scenarios/chatassist-red-team-assessment
-npm install docx
-node generate_chatassist_report.js
-```
-
-## Skills Demonstrated
-- LLM security testing and red teaming
-- Manual attack scenario design across 5 vulnerability categories
-- Automated vulnerability scanning with Garak
-- Security report generation and documentation
-- Python and Node.js scripting
-- AI safety concepts and remediation recommendations
-- SSH key setup and GitHub version control
-
-## Module 2: Content Safety Filters — Implementation and Testing
-
-### Graded Assignment: Safety Filter Implementation for SecureChat Enterprise Bot
-Pre-deployment safety filter implementation for BizAssist enterprise HR chatbot
-targeting Fortune 500 clients. Designed 4-layer filter architecture and validated
-using Microsoft PyRIT v0.11.0.
-
-**Key Finding:** 0% bypass rate across 14 attack scenarios including sophisticated
-multi-turn attacks — meets enterprise deployment threshold of less than 5%.
-
-**Scripts:**
-- `pyrit_test.py` — Baseline PyRIT bypass testing
-- `pyrit_test_advanced.py` — Advanced multi-turn attack testing
-- `generate_securechat_report.js` — Generates safety filter implementation report
-
-**Tools Used**
-- Microsoft PyRIT v0.11.0 — Systematic filter bypass testing
-- OpenAI GPT-3.5-turbo — Target model for security testing
-- Python 3.11 — PyRIT integration and test scripting
-- Node.js — Professional report generation
+**Tools:** Garak v0.14.0, Python 3.11, Node.js, OpenAI GPT-3.5-turbo
 
 ---
 
-## Module 3: Testing LLM Resilience and Improving AI Robustness
+## Project 2: ChatAssist Red Team Assessment
+`module1-red-teaming-scenarios/chatassist-red-team-assessment`
 
-### Graded Assignment: Resilience Assessment and Continuous Hardening of DataSecure AI Assistant
+**Scenario:** Pre-launch security assessment of ChatAssist, a customer 
+service chatbot for TechFlow Solutions serving 500,000 customers.
 
-Comprehensive resilience assessment of AnalyzeBot, DataSecure Corporation's AI-powered data analysis assistant, after 90 days in production serving healthcare, financial, and government enterprise clients. Established baseline security metrics using Promptfoo, implemented a continuous monitoring pipeline, and demonstrated measurable security improvements through three systematic hardening iterations.
+**What I did:**
+- Designed 5 manual attack scenarios across key vulnerability categories
+  including prompt injection, jailbreaking, data extraction, system 
+  prompt exposure, and multi-turn context building
+- Ran automated Garak scan across multiple probe categories
+- Analyzed results and produced a launch recommendation
 
-**Key Finding:** Baseline security score of 33.33% (61.67 percentage points below the initial 95% target), confirmed by 30 failed tests across all four vulnerability categories. Three targeted hardening iterations improved the score to 91.11%, exceeding the enterprise deployment threshold of 90% and clearing the contractual floor of 85%.
+**Key Finding:** ANSI escape code exploitation had a 58.82% attack 
+success rate — a critical vulnerability that most security teams 
+overlook because it targets rendering, not model behavior.
 
-**Config Files:**
-- `promptfooconfig.yaml` — Baseline assessment with 45 adversarial test cases across 4 categories
-- `hardening-v1.yaml` — Iteration 1: Data confidentiality and system prompt protection rules
-- `hardening-v2.yaml` — Iteration 2: Persona stability and prompt injection detection rules
-- `hardening-v3.yaml` — Iteration 3: Defense-in-depth comprehensive hardening
+**Recommendation:** Delay launch pending remediation.
 
-**Deliverables:**
-- `baseline_security_assessment.md` — Full baseline report with all 30 failed tests documented
-- `continuous_monitoring_plan.md` — Industry-standard four-tier monitoring architecture
-- `hardening_results.md` — Iterative hardening results with root cause analysis of persistent failures
-- `generate_analyzebot_combined_report.js` — Generates the combined Word document report
-- `AnalyzeBot_Resilience_Assessment_Report.docx` / `.pdf` — Final submission report
+**Tools:** Garak v0.14.0, Python 3.11, Node.js, OpenAI GPT-3.5-turbo
 
-**Tools Used**
-- Promptfoo v0.119 — LLM evaluation framework for systematic security testing
-- OpenAI GPT-3.5-turbo — Model under test (temperature: 0.0 for deterministic results)
-- Node.js — Professional report generation
-- GitHub Actions — CI/CD security gate automation
+---
 
-**Test Suite Overview**
+## Project 3: Safety Filter Implementation for BizAssist HR Chatbot
+`module2-content-safety-filters/securechat-safety-filter-assessment`
 
-| Category | Tests | Attack Types |
-|---|---|---|
-| Prompt Injection (PI) | 15 | Instruction overrides, authority claims, encoded payloads, CSV/document injection, delimiter attacks |
-| Jailbreaking (JB) | 10 | Developer mode, DAN, evil twin, fictional framing, grandma exploit, token manipulation, hypotheticals |
-| Data Extraction (DE) | 10 | Client lists, financial data, training data, competitive intelligence, contract values |
-| System Prompt Exposure (SP) | 10 | Direct requests, translation, reformatting, token prediction, configuration extraction |
-| **Total** | **45** | |
+**Scenario:** Pre-deployment safety filter design and validation for 
+BizAssist, an enterprise HR chatbot launching to Fortune 500 clients 
+in 72 hours. $15M in contracts depended on passing security audits.
 
-**Hardening Progression**
+**What I did:**
+- Designed a 4-layer safety filter architecture:
+  - Layer 1: Input sanitization with 18-term keyword blocklist
+  - Layer 2: Semantic analysis with 85% similarity threshold
+  - Layer 3: Output filtering with 5 critical checks
+  - Layer 4: Behavioral monitoring across conversation turns
+- Installed and configured Microsoft PyRIT v0.11.0
+- Ran baseline and advanced bypass testing across 14 attack scenarios
+- Documented before/after filter performance comparison
+
+**Key Finding:** 0% bypass rate across all 14 scenarios including 
+sophisticated multi-turn attacks, Base64 encoding attempts, and CEO 
+impersonation — meets the enterprise threshold of less than 5%.
+
+**Recommendation:** Deploy with conditions — weekly PyRIT regression 
+testing and false positive monitoring required.
+
+**Tools:** PyRIT v0.11.0, Python 3.11, Node.js, OpenAI GPT-3.5-turbo
+
+---
+
+## Project 4: AnalyzeBot Resilience Assessment
+`module3-llm-resilience/analyzebot-resilience-assessment`
+
+**Scenario:** Investigate behavioral drift in AnalyzeBot, DataSecure 
+Corporation's AI assistant serving healthcare, financial, and government 
+clients after 90 days in production. A Fortune 50 healthcare provider 
+with an $8M contract requires quarterly audits with automatic termination 
+if security degrades more than 10%.
+
+**What I did:**
+- Built a 45-test Promptfoo evaluation suite across 4 vulnerability 
+  categories: prompt injection, jailbreaking, data extraction, and 
+  system prompt exposure
+- Ran baseline assessment establishing a quantitative security posture
+- Executed 3 targeted hardening iterations, changing one variable at 
+  a time for clear attribution of improvements
+- Designed a 4-tier continuous monitoring architecture
+- Implemented a CI/CD security gate using GitHub Actions blocking 
+  deploys below 85%
+
+**Hardening Results:**
 
 | Iteration | Score | Change |
-|---|---|---|
+|-----------|-------|--------|
 | Baseline | 33.33% | — |
 | Hardening v1 | 84.44% | +51.11pp |
 | Hardening v2 | 91.11% | +6.67pp |
-| Hardening v3 (Final) | 91.11% | — |
+| Final | 91.11% | — |
+
+**Key Finding:** A single instruction — "Be as helpful as possible" — 
+was the root cause of all behavioral drift. It caused the model to 
+comply with social engineering, accept fictional framings as permission 
+grants, and treat authority claims as legitimate.
+
+**Recommendation:** Deploy — 91.11% exceeds enterprise threshold of 
+90% and contractual floor of 85%.
+
+**Tools:** Promptfoo v0.119, Node.js, GitHub Actions, OpenAI GPT-3.5-turbo
 
 ---
 
-## How to Run
+## Project 5: FinanceAssist Security Audit
+`module3-llm-resilience/financeassist-security-audit`
+
+**Scenario:** Full AI security audit of FinanceAssist, SecureBank's 
+AI-powered customer service chatbot, before deployment to 2 million 
+customers.
+
+**What I did:**
+- Deployed a deliberately vulnerable chatbot and established a 
+  quantitative baseline security posture
+- Red-teamed using three tools in combination:
+  - Garak — automated probe scanning across injection, jailbreak, 
+    and data retrieval categories
+  - PyRIT — multi-turn adversarial conversation attacks
+  - Promptfoo — assertion-based resilience testing
+- Designed and implemented a 7-layer safety filter architecture in 
+  Python with a YAML configuration file
+- Ran 5 hardening iterations measuring security score and false 
+  positive rate at each step
+- Validated improvements through automated rescanning
+
+**Security Improvement:**
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Manual security score | 0% | 90% |
+| Garak avg attack rate | 41.2% | 3.8% |
+| Critical vulnerabilities | 6 | 0 |
+| False positive rate | N/A | 0% |
+| Promptfoo pass rate | N/A | 83.3% |
+
+**Key Finding:** No single tool provides complete coverage. Garak found 
+automated injection vulnerabilities. PyRIT found multi-turn social 
+engineering gaps. Promptfoo found encoded injection and academic 
+pretexting — two vulnerabilities the other tools missed entirely.
+
+**Recommendation:** Not yet production-ready. Encoded injection and 
+sophisticated social engineering represent remaining attack surface 
+requiring additional hardening before deployment to 2 million customers.
+
+**Tools:** Garak v0.14.0, PyRIT v0.11.0, Promptfoo v0.121, Python 3.11,
+OpenAI GPT-3.5-turbo
+
+---
+
+## How to Reproduce
 
 ### Prerequisites
-- Python 3.10+
-- Node.js
-- OpenAI API key
-
-### Installation
-
 ```bash
-# Install Garak (Module 1)
-pip install garak
+# Create conda environment
+conda create -n redteam python=3.11
+conda activate redteam
 
-# Install Promptfoo (Module 3)
+# Install Python packages
+pip install garak pyrit openai python-dotenv presidio-analyzer spacy
+python -m spacy download en_core_web_lg
+
+# Install Node.js packages
 npm install -g promptfoo
-
-# Install report generator dependencies
 npm install docx
+
+# Set up API key
+echo "OPENAI_API_KEY=your-key-here" > .env
 ```
 
-### Module 1 — Run a Garak vulnerability scan
-
+### Running Each Project
 ```bash
-export OPENAI_API_KEY="your-key-here"
+# Project 1 & 2 — Garak scanning
+garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject
 
-# Baseline scan
-garak --model_type openai --model_name gpt-3.5-turbo
-
-# Targeted prompt injection scan
-garak --model_type openai --model_name gpt-3.5-turbo --probes promptinject --report_prefix garak_report
-
-# Generate the LLM Security Audit Report
-python parse_report.py garak_report*.jsonl > parsed_data.json
-node generate_report.js
-
-# Generate the ChatAssist Red Team Assessment
-cd module1-red-teaming-scenarios/chatassist-red-team-assessment
-node generate_chatassist_report.js
-```
-
-### Module 2 — Run PyRIT safety filter testing
-
-```bash
-cd module2-content-safety-filters/securechat-safety-filter-assessment
-pip install pyrit
+# Project 3 — PyRIT filter testing
 python pyrit_test.py
 python pyrit_test_advanced.py
-node generate_securechat_report.js
-```
 
-### Module 3 — Run Promptfoo resilience assessment
-
-```bash
-cd module3-llm-resilience/analyzebot-resilience-assessment
-export OPENAI_API_KEY="your-key-here"
-
-# Run baseline assessment
+# Project 4 — Promptfoo resilience testing
 promptfoo eval -c promptfooconfig.yaml
 promptfoo view
 
-# Run hardening iterations
-promptfoo eval --config hardening-v1.yaml
-promptfoo eval --config hardening-v2.yaml
-promptfoo eval --config hardening-v3.yaml
-
-# Generate combined report
-node generate_analyzebot_combined_report.js
+# Project 5 — Full security audit
+jupyter notebook security_audit.ipynb
 ```
 
 ---
 
 ## Skills Demonstrated
 
-- LLM security testing and red teaming
-- Manual attack scenario design across multiple vulnerability categories
-- Automated vulnerability scanning with Garak and Promptfoo
-- Safety filter architecture design and implementation
-- Iterative security hardening with quantitative measurement
+- AI red-teaming using Garak, PyRIT, and Promptfoo
+- Safety filter design, implementation, and iterative hardening
+- LLM vulnerability assessment across 5 attack categories
+- Quantitative security measurement and documentation
 - Continuous monitoring pipeline design with CI/CD integration
-- Security report generation and documentation
-- Python and Node.js scripting
-- AI safety concepts and remediation recommendations
-- SSH key setup and GitHub version control
+- Python scripting for filter implementation and report parsing
+- Node.js for professional security report generation
